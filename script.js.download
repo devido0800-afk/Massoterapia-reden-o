@@ -1,0 +1,55 @@
+// Inicializa o AOS (Animações)
+AOS.init({
+  duration: 800,
+  once: true,
+  offset: 80,
+  easing: 'ease-out-quad'
+});
+
+// Menu mobile (hamburger)
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  // Alterna ícone entre hamburger e "X"
+  const icon = menuToggle.querySelector('i');
+  icon.classList.toggle('fa-bars');
+  icon.classList.toggle('fa-times');
+});
+
+// Fecha o menu ao clicar em um link (mobile)
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    const icon = menuToggle.querySelector('i');
+    icon.classList.add('fa-bars');
+    icon.classList.remove('fa-times');
+  });
+});
+
+// Smooth scroll para âncoras (fallback)
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    const target = document.querySelector(targetId);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+
+// Exemplo: altera a cor da navbar ao rolar (efeito sutil)
+window.addEventListener('scroll', () => {
+  const navbar = document.querySelector('.navbar');
+  if (window.scrollY > 60) {
+    navbar.style.background = 'rgba(255, 255, 255, 0.92)';
+  } else {
+    navbar.style.background = 'rgba(255, 255, 255, 0.85)';
+  }
+});
